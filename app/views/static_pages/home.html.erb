@@ -1,0 +1,22 @@
+<h1>Your Pexels Photo Collections<h1>
+
+<%= form_with url: root_path, method: :get, local: true do %>
+    <%= label_tag :collection_id, "Enter Pexels Collection ID:" %>
+    <%= text_field_tag :collection_id, params[:collection_id] %>
+    <%= submit_tag "Show Photos" %>
+<% end %>
+
+<br>
+<hr>
+<br>
+
+<% if @photos.any? %>
+    <% @photos.each do |photo| %>
+        <div style="margin-bottom: 20px;">
+            <img src="<%= photo.src["medium"] %>">
+            <p><%= photo.user.name %></p>
+        </div>
+    <% end %>
+<% elsif params[:collection_id].present? %>
+    <p>No photos found for that collection ID.</p>
+<% end %>
